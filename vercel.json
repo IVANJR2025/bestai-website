@@ -1,0 +1,17 @@
+{
+    "cleanUrls": true,
+    "rewrites": [
+      { "source": "/servicos", "destination": "/pages/servicos.html" },
+      { "source": "/sobre",    "destination": "/pages/sobre.html" },
+      { "source": "/blog",     "destination": "/pages/blog.html" },
+      { "source": "/eventos",  "destination": "/pages/eventos.html" }
+    ],
+    "headers": [
+      {
+        "source": "/(.*)",
+        "headers": [
+          { "key": "X-Content-Type-Options", "value": "nosniff" }
+        ]
+      }
+    ]
+  }

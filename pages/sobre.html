@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="BestAI — Quem somos, a nossa missão e os valores que nos guiam." />
+  <title>Sobre — BestAI</title>
+  <link rel="icon" type="image/png" href="../assets/images/logo.png" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <style>
+    .page-hero {
+      background: var(--color-dark-bg);
+      padding: calc(var(--nav-height) + var(--space-20)) 0 var(--space-20);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: -100px; left: 50%;
+      transform: translateX(-50%);
+      width: 600px; height: 400px;
+      background: radial-gradient(ellipse, rgba(92,224,224,0.13) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .page-hero__eyebrow {
+      display: inline-block;
+      font-size: var(--text-xs);
+      font-weight: var(--weight-semibold);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-cyan);
+      margin-bottom: var(--space-3);
+    }
+    .page-hero__title {
+      font-family: var(--font-display);
+      font-size: var(--text-5xl);
+      font-weight: var(--weight-black);
+      color: var(--color-text-light);
+      margin-bottom: var(--space-4);
+      position: relative;
+    }
+    .page-hero__subtitle {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+      max-width: 540px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* MISSION */
+    .mission__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-16);
+      align-items: center;
+    }
+    .mission__text .section__title {
+      margin-bottom: var(--space-6);
+    }
+    .mission__text p {
+      font-size: var(--text-base);
+      color: var(--color-text-secondary);
+      line-height: 1.8;
+      margin-bottom: var(--space-4);
+    }
+    .mission__visual {
+      background: var(--color-dark-bg);
+      border: 1px solid var(--color-dark-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-12);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
+    }
+    .mission__stat {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+    }
+    .mission__stat-value {
+      font-family: var(--font-display);
+      font-size: var(--text-4xl);
+      font-weight: var(--weight-black);
+      color: var(--color-cyan);
+      min-width: 100px;
+    }
+    .mission__stat-label {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      line-height: 1.5;
+    }
+    .mission__stat-divider {
+      height: 1px;
+      background: var(--color-dark-border);
+    }
+
+    /* VALUES */
+    .values__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+      margin-top: var(--space-12);
+    }
+    .value-card {
+      background: var(--color-dark-surface);
+      border: 1px solid var(--color-dark-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-8);
+      transition: border-color var(--transition-normal),
+                  box-shadow var(--transition-normal);
+    }
+    .value-card:hover {
+      border-color: var(--color-cyan);
+      box-shadow: var(--shadow-cyan);
+    }
+    .value-card__icon {
+      font-size: 2rem;
+      margin-bottom: var(--space-4);
+    }
+    .value-card__title {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: var(--weight-bold);
+      color: var(--color-text-light);
+      margin-bottom: var(--space-2);
+    }
+    .value-card__text {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      line-height: 1.7;
+    }
+
+    /* FOUNDER */
+    .founder__card {
+      max-width: 780px;
+      margin: var(--space-12) auto 0;
+      background: var(--color-light-surface);
+      border: 1px solid var(--color-light-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-12);
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: var(--space-8);
+      align-items: start;
+    }
+    .founder__avatar {
+      width: 96px; height: 96px;
+      border-radius: 50%;
+      background: var(--color-dark-bg);
+      border: 3px solid var(--color-cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      flex-shrink: 0;
+    }
+    .founder__name {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      font-weight: var(--weight-bold);
+      margin-bottom: var(--space-1);
+    }
+    .founder__role {
+      font-size: var(--text-sm);
+      color: var(--color-cyan);
+      font-weight: var(--weight-semibold);
+      margin-bottom: var(--space-4);
+    }
+    .founder__bio {
+      font-size: var(--text-base);
+      color: var(--color-text-secondary);
+      line-height: 1.8;
+    }
+
+    /* TOOLS */
+    .tools__grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      margin-top: var(--space-8);
+      justify-content: center;
+    }
+    .tool-tag {
+      background: var(--color-light-surface);
+      border: 1px solid var(--color-light-border);
+      border-radius: var(--radius-full);
+      padding: var(--space-2) var(--space-5);
+      font-size: var(--text-sm);
+      font-weight: var(--weight-medium);
+      color: var(--color-text-secondary);
+      transition: border-color var(--transition-fast),
+                  color var(--transition-fast);
+    }
+    .tool-tag:hover {
+      border-color: var(--color-cyan);
+      color: var(--color-cyan);
+    }
+
+    @media (max-width: 768px) {
+      .page-hero__title  { font-size: var(--text-3xl); }
+      .mission__grid     { grid-template-columns: 1fr; }
+      .values__grid      { grid-template-columns: 1fr; }
+      .founder__card     { grid-template-columns: 1fr; text-align: center; }
+      .founder__avatar   { margin: 0 auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar scrolled">
+    <div class="container">
+      <a href="../index.html" class="navbar__logo">
+        <img src="../assets/images/logo.png" alt="BestAI" />
+      </a>
+      <ul class="navbar__links">
+        <li><a href="servicos.html" data-i18n="nav_services">Serviços</a></li>
+        <li><a href="sobre.html" class="active" data-i18n="nav_about">Sobre</a></li>
+        <li><a href="blog.html"    data-i18n="nav_blog">Blog</a></li>
+        <li><a href="eventos.html" data-i18n="nav_events">Eventos</a></li>
+        <li>
+            <li>
+                <div class="lang-switcher">
+                  <button class="lang-btn active" data-lang="pt" title="Português">🇵🇹</button>
+                  <button class="lang-btn" data-lang="es" title="Español">🇪🇸</button>
+                  <button class="lang-btn" data-lang="en" title="English">🇬🇧</button>
+                </div>
+              </li>
+        <li><a href="../index.html#contacto" class="navbar__cta" data-i18n="nav_contact">Contactar</a></li>
+      </ul>
+      <div class="navbar__toggle"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="container">
+      <span class="page-hero__eyebrow">A nossa história</span>
+      <h1 class="page-hero__title">IA acessível para<br>qualquer negócio</h1>
+      <p class="page-hero__subtitle">Nascemos para democratizar a inteligência artificial — torná-la prática, acessível e verdadeiramente útil para PMEs em Portugal e Espanha.</p>
+    </div>
+  </section>
+
+  <!-- MISSÃO -->
+  <section class="section section--light">
+    <div class="container">
+      <div class="mission__grid">
+        <div class="mission__text">
+          <span class="section__eyebrow">Missão</span>
+          <h2 class="section__title">Tecnologia de ponta,<br>linguagem humana</h2>
+          <p>A BestAI nasceu da convicção de que a inteligência artificial não deve ser privilégio de grandes empresas com orçamentos enormes.</p>
+          <p>Trabalhamos com PMEs, profissionais independentes e empresas em crescimento — traduzindo tecnologia complexa em soluções concretas que poupam tempo, reduzem custos e aumentam vendas.</p>
+          <p>O nosso foco é sempre o mesmo: resultados mensuráveis, entrega rápida e comunicação clara em todas as etapas.</p>
+        </div>
+        <div class="mission__visual">
+          <div class="mission__stat">
+            <span class="mission__stat-value">48h</span>
+            <span class="mission__stat-label">Tempo médio para entregar o primeiro protótipo funcional</span>
+          </div>
+          <div class="mission__stat-divider"></div>
+          <div class="mission__stat">
+            <span class="mission__stat-value">2</span>
+            <span class="mission__stat-label">Mercados ativos — Portugal e Espanha</span>
+          </div>
+          <div class="mission__stat-divider"></div>
+          <div class="mission__stat">
+            <span class="mission__stat-value">∞</span>
+            <span class="mission__stat-label">Sectores que podemos transformar com IA</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALORES -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="section__header">
+        <span class="section__eyebrow">Valores</span>
+        <h2 class="section__title">O que nos guia</h2>
+      </div>
+      <div class="values__grid">
+        <div class="value-card">
+          <div class="value-card__icon">🎯</div>
+          <h3 class="value-card__title">Foco em resultados</h3>
+          <p class="value-card__text">Não entregamos código — entregamos impacto. Cada projeto tem métricas claras de sucesso definidas antes de começarmos.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-card__icon">🔍</div>
+          <h3 class="value-card__title">Transparência total</h3>
+          <p class="value-card__text">Preços fixos, prazos reais e comunicação honesta. Nunca prometemos o que não conseguimos entregar.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-card__icon">⚡</div>
+          <h3 class="value-card__title">Velocidade com qualidade</h3>
+          <p class="value-card__text">Entregamos rápido sem sacrificar qualidade. Usamos IA nas nossas próprias operações para sermos mais eficientes.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-card__icon">🤝</div>
+          <h3 class="value-card__title">Parceria real</h3>
+          <p class="value-card__text">Não somos fornecedores — somos parceiros. O teu sucesso é a nossa métrica mais importante.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-card__icon">🌍</div>
+          <h3 class="value-card__title">Ibéria primeiro</h3>
+          <p class="value-card__text">Focados em Portugal e Espanha, entendemos a cultura, a legislação e as necessidades específicas do mercado ibérico.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-card__icon">📚</div>
+          <h3 class="value-card__title">Aprendizagem contínua</h3>
+          <p class="value-card__text">A IA evolui todos os dias. Nós também. Investimos constantemente em formação para trazer sempre o que há de mais atual.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FUNDADOR -->
+  <section class="section section--light">
+    <div class="container">
+      <div class="section__header" style="text-align:center;">
+        <span class="section__eyebrow">Equipa</span>
+        <h2 class="section__title">Quem está por detrás da BestAI</h2>
+      </div>
+      <div class="founder__card">
+        <div class="founder__avatar">👨‍💻</div>
+        <div>
+          <h3 class="founder__name">Ivan Junior</h3>
+          <p class="founder__role">Fundador & AI Solutions Architect</p>
+          <p class="founder__bio">
+            Com experiência em engenharia e uma paixão por inteligência artificial, Ivan fundou a BestAI com uma missão clara: tornar a IA acessível a qualquer empresa, independentemente da sua dimensão. Especialista em automação de processos, desenvolvimento web e implementação de soluções de IA para o mercado ibérico.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FERRAMENTAS -->
+  <section class="section section--surface">
+    <div class="container" style="text-align:center;">
+      <span class="section__eyebrow">Stack tecnológico</span>
+      <h2 class="section__title">As ferramentas que usamos</h2>
+      <p class="section__subtitle" style="margin:0 auto var(--space-8);">Trabalhamos com as melhores ferramentas do mercado para garantir soluções robustas e escaláveis.</p>
+      <div class="tools__grid">
+        <span class="tool-tag">Claude AI</span>
+        <span class="tool-tag">OpenAI GPT-4</span>
+        <span class="tool-tag">n8n</span>
+        <span class="tool-tag">Flowise</span>
+        <span class="tool-tag">Vercel</span>
+        <span class="tool-tag">Node.js</span>
+        <span class="tool-tag">Python</span>
+        <span class="tool-tag">Supabase</span>
+        <span class="tool-tag">WhatsApp Business API</span>
+        <span class="tool-tag">Google Analytics</span>
+        <span class="tool-tag">Stripe</span>
+        <span class="tool-tag">Notion</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section cta-section">
+    <div class="container">
+      <div class="cta-box">
+        <h2 class="cta-box__title">Vamos trabalhar juntos?</h2>
+        <p class="cta-box__subtitle">A primeira consulta é gratuita. Sem compromissos, sem pressão.</p>
+        <a href="mailto:hello@bestai.pt" class="btn btn--primary">Agendar Consulta Gratuita</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <img src="../assets/images/logo.png" alt="BestAI" />
+          <p data-i18n="footer_desc">Soluções de Inteligência Artificial para empresas que querem crescer com tecnologia.</p>
+        </div>
+        <div class="footer__col">
+          <h4 data-i18n="footer_services">Serviços</h4>
+          <ul>
+            <li><a href="servicos.html">Sites & E-commerce</a></li>
+            <li><a href="servicos.html">Chatbots com IA</a></li>
+            <li><a href="servicos.html">Sistemas RAG</a></li>
+            <li><a href="servicos.html">Automações</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4 data-i18n="footer_company">Empresa</h4>
+          <ul>
+            <li><a href="sobre.html"   data-i18n="footer_about">Sobre nós</a></li>
+            <li><a href="blog.html"    data-i18n="footer_blog">Blog</a></li>
+            <li><a href="eventos.html" data-i18n="footer_events">Eventos</a></li>
+            <li><a href="../index.html#contacto" data-i18n="footer_contact">Contacto</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4 data-i18n="footer_legal">Legal</h4>
+          <ul>
+            <li><a href="#" data-i18n="footer_privacy">Privacidade</a></li>
+            <li><a href="#" data-i18n="footer_terms">Termos de uso</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>© 2026 BestAI. <span data-i18n="footer_rights">Todos os direitos reservados.</span></span>
+        <div class="lang-switcher">
+            <button class="lang-btn active" data-lang="pt" title="Português">🇵🇹</button>
+            <button class="lang-btn" data-lang="es" title="Español">🇪🇸</button>
+            <button class="lang-btn" data-lang="en" title="English">🇬🇧</button>
+          </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/i18n.js"></script>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>
