@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="BestAI — Serviços de IA: Sites, Chatbots, RAG, Automações e SEO." />
+  <title>Serviços — BestAI</title>
+  <link rel="icon" type="image/png" href="../assets/images/logo.png" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <style>
+    /* PAGE HERO */
+    .page-hero {
+      background: var(--color-dark-bg);
+      padding: calc(var(--nav-height) + var(--space-20)) 0 var(--space-20);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: -100px; left: 50%;
+      transform: translateX(-50%);
+      width: 600px; height: 400px;
+      background: radial-gradient(ellipse, rgba(92,224,224,0.13) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .page-hero__eyebrow {
+      display: inline-block;
+      font-size: var(--text-xs);
+      font-weight: var(--weight-semibold);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-cyan);
+      margin-bottom: var(--space-3);
+    }
+    .page-hero__title {
+      font-family: var(--font-display);
+      font-size: var(--text-5xl);
+      font-weight: var(--weight-black);
+      color: var(--color-text-light);
+      margin-bottom: var(--space-4);
+      position: relative;
+    }
+    .page-hero__subtitle {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+      max-width: 540px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* PRICING CARDS */
+    .pricing__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+      margin-top: var(--space-12);
+    }
+    .pricing-card {
+      background: var(--color-light-surface);
+      border: 1px solid var(--color-light-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-8);
+      transition: box-shadow var(--transition-normal),
+                  transform var(--transition-normal),
+                  border-color var(--transition-normal);
+      position: relative;
+    }
+    .pricing-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-4px);
+      border-color: var(--color-cyan);
+    }
+    .pricing-card--featured {
+      background: var(--color-dark-bg);
+      border-color: var(--color-cyan);
+      color: var(--color-text-light);
+      box-shadow: var(--shadow-cyan);
+    }
+    .pricing-card--featured:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 0 40px rgba(92,224,224,0.25);
+    }
+    .pricing-card__badge {
+      position: absolute;
+      top: -12px; left: 50%;
+      transform: translateX(-50%);
+      background: var(--color-cyan);
+      color: var(--color-dark-bg);
+      font-size: var(--text-xs);
+      font-weight: var(--weight-bold);
+      padding: 4px 16px;
+      border-radius: var(--radius-full);
+      white-space: nowrap;
+      letter-spacing: 0.08em;
+    }
+    .pricing-card__icon {
+      font-size: 2rem;
+      margin-bottom: var(--space-4);
+    }
+    .pricing-card__title {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      font-weight: var(--weight-bold);
+      margin-bottom: var(--space-2);
+    }
+    .pricing-card__price {
+      font-family: var(--font-display);
+      font-size: var(--text-4xl);
+      font-weight: var(--weight-black);
+      color: var(--color-cyan);
+      margin: var(--space-4) 0;
+    }
+    .pricing-card__price span {
+      font-size: var(--text-base);
+      font-weight: var(--weight-regular);
+      color: var(--color-text-muted);
+    }
+    .pricing-card__desc {
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-6);
+      line-height: 1.6;
+    }
+    .pricing-card--featured .pricing-card__desc {
+      color: var(--color-text-muted);
+    }
+    .pricing-card__features {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      margin-bottom: var(--space-8);
+    }
+    .pricing-card__feature {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+    }
+    .pricing-card--featured .pricing-card__feature {
+      color: var(--color-text-muted);
+    }
+    .pricing-card__feature::before {
+      content: '✓';
+      color: var(--color-cyan);
+      font-weight: var(--weight-bold);
+      flex-shrink: 0;
+    }
+
+    /* PROCESS */
+    .process__steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-6);
+      margin-top: var(--space-12);
+      position: relative;
+    }
+    .process__steps::before {
+      content: '';
+      position: absolute;
+      top: 32px; left: 10%;
+      width: 80%;
+      height: 1px;
+      background: linear-gradient(90deg,
+        transparent, var(--color-cyan), transparent);
+    }
+    .process-step {
+      text-align: center;
+      position: relative;
+    }
+    .process-step__number {
+      width: 64px; height: 64px;
+      background: var(--color-dark-surface);
+      border: 2px solid var(--color-cyan);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      font-weight: var(--weight-black);
+      color: var(--color-cyan);
+      margin: 0 auto var(--space-4);
+      position: relative;
+      z-index: 1;
+      background: var(--color-dark-bg);
+    }
+    .process-step__title {
+      font-family: var(--font-display);
+      font-size: var(--text-base);
+      font-weight: var(--weight-bold);
+      color: var(--color-text-light);
+      margin-bottom: var(--space-2);
+    }
+    .process-step__text {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      line-height: 1.6;
+    }
+
+    /* FAQ */
+    .faq__list {
+      max-width: 720px;
+      margin: var(--space-12) auto 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+    .faq-item {
+      background: var(--color-light-surface);
+      border: 1px solid var(--color-light-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .faq-item__question {
+      padding: var(--space-6);
+      font-weight: var(--weight-semibold);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: color var(--transition-fast);
+      user-select: none;
+    }
+    .faq-item__question:hover { color: var(--color-cyan); }
+    .faq-item__question::after {
+      content: '+';
+      font-size: var(--text-xl);
+      color: var(--color-cyan);
+      transition: transform var(--transition-normal);
+      flex-shrink: 0;
+    }
+    .faq-item.open .faq-item__question::after {
+      transform: rotate(45deg);
+    }
+    .faq-item__answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height var(--transition-slow),
+                  padding var(--transition-normal);
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+      padding: 0 var(--space-6);
+    }
+    .faq-item.open .faq-item__answer {
+      max-height: 200px;
+      padding: 0 var(--space-6) var(--space-6);
+    }
+
+    @media (max-width: 768px) {
+      .page-hero__title { font-size: var(--text-3xl); }
+      .pricing__grid { grid-template-columns: 1fr; }
+      .process__steps { grid-template-columns: 1fr 1fr; }
+      .process__steps::before { display: none; }
+    }
+    @media (max-width: 480px) {
+      .process__steps { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar scrolled">
+    <div class="container">
+      <a href="../index.html" class="navbar__logo">
+        <img src="../assets/images/logo.png" alt="BestAI" />
+      </a>
+      <ul class="navbar__links">
+        <li><a href="servicos.html" class="active" data-i18n="nav_services">Serviços</a></li>
+        <li><a href="sobre.html"   data-i18n="nav_about">Sobre</a></li>
+        <li><a href="blog.html"    data-i18n="nav_blog">Blog</a></li>
+        <li><a href="eventos.html" data-i18n="nav_events">Eventos</a></li>
+        <li>
+          <div class="lang-switcher">
+            <span data-lang="pt" class="active">PT</span>
+            <span style="color:#2e3548">|</span>
+            <span data-lang="es">ES</span>
+          </div>
+        </li>
+        <li><a href="../index.html#contacto" class="navbar__cta" data-i18n="nav_contact">Contactar</a></li>
+      </ul>
+      <div class="navbar__toggle"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="container">
+      <span class="page-hero__eyebrow">O que oferecemos</span>
+      <h1 class="page-hero__title">Serviços desenhados<br>para resultados reais</h1>
+      <p class="page-hero__subtitle">Cada solução é implementada com foco no teu sector, nos teus clientes e nos teus objetivos de negócio.</p>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="section section--light">
+    <div class="container">
+      <div class="section__header">
+        <span class="section__eyebrow">Pacotes</span>
+        <h2 class="section__title">Escolhe o teu ponto de entrada</h2>
+        <p class="section__subtitle">Sem contratos longos. Sem surpresas. Começa pelo que precisas agora.</p>
+      </div>
+
+      <div class="pricing__grid">
+
+        <div class="pricing-card">
+          <div class="pricing-card__icon">🚀</div>
+          <h3 class="pricing-card__title">Starter</h3>
+          <div class="pricing-card__price">400€ <span>/ projeto</span></div>
+          <p class="pricing-card__desc">Ideal para quem está a começar e precisa de presença digital profissional.</p>
+          <ul class="pricing-card__features">
+            <li class="pricing-card__feature">Site profissional até 5 páginas</li>
+            <li class="pricing-card__feature">SEO básico configurado</li>
+            <li class="pricing-card__feature">Design responsivo mobile</li>
+            <li class="pricing-card__feature">Formulário de contacto</li>
+            <li class="pricing-card__feature">Deploy e domínio configurado</li>
+          </ul>
+          <a href="../index.html#contacto" class="btn btn--dark" style="width:100%;justify-content:center;">Começar</a>
+        </div>
+
+        <div class="pricing-card pricing-card--featured">
+          <div class="pricing-card__badge">⭐ Mais popular</div>
+          <div class="pricing-card__icon">⚡</div>
+          <h3 class="pricing-card__title">Growth</h3>
+          <div class="pricing-card__price">800€ <span>/ projeto</span></div>
+          <p class="pricing-card__desc">Site completo com chatbot integrado e automações básicas para o teu negócio.</p>
+          <ul class="pricing-card__features">
+            <li class="pricing-card__feature">Tudo do Starter</li>
+            <li class="pricing-card__feature">Chatbot com IA personalizado</li>
+            <li class="pricing-card__feature">SEO avançado + Google Search Console</li>
+            <li class="pricing-card__feature">Integração WhatsApp Business</li>
+            <li class="pricing-card__feature">Painel de analytics</li>
+            <li class="pricing-card__feature">1 mês de suporte incluído</li>
+          </ul>
+          <a href="../index.html#contacto" class="btn btn--primary" style="width:100%;justify-content:center;">Começar</a>
+        </div>
+
+        <div class="pricing-card">
+          <div class="pricing-card__icon">🧠</div>
+          <h3 class="pricing-card__title">Enterprise</h3>
+          <div class="pricing-card__price">Custom <span>/ mês</span></div>
+          <p class="pricing-card__desc">Solução completa com RAG, automações avançadas e suporte contínuo dedicado.</p>
+          <ul class="pricing-card__features">
+            <li class="pricing-card__feature">Tudo do Growth</li>
+            <li class="pricing-card__feature">Sistema RAG sobre os teus documentos</li>
+            <li class="pricing-card__feature">Automações com n8n</li>
+            <li class="pricing-card__feature">Relatórios mensais de performance</li>
+            <li class="pricing-card__feature">Suporte prioritário dedicado</li>
+            <li class="pricing-card__feature">Consultoria estratégica mensal</li>
+          </ul>
+          <a href="../index.html#contacto" class="btn btn--dark" style="width:100%;justify-content:center;">Falar Connosco</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESSO -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="section__header">
+        <span class="section__eyebrow">Como trabalhamos</span>
+        <h2 class="section__title">Do briefing ao ar em 4 passos</h2>
+      </div>
+      <div class="process__steps">
+        <div class="process-step">
+          <div class="process-step__number">01</div>
+          <h3 class="process-step__title">Descoberta</h3>
+          <p class="process-step__text">Entendemos o teu negócio, sector e objetivos numa chamada de 30 minutos.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-step__number">02</div>
+          <h3 class="process-step__title">Proposta</h3>
+          <p class="process-step__text">Enviamos uma proposta detalhada com prazo, entregáveis e preço fixo.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-step__number">03</div>
+          <h3 class="process-step__title">Desenvolvimento</h3>
+          <p class="process-step__text">Construímos e mostramos progresso. Tens acesso a revisões durante o processo.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-step__number">04</div>
+          <h3 class="process-step__title">Entrega</h3>
+          <p class="process-step__text">Fazemos o deploy, configuramos tudo e entregamos com documentação completa.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section--light">
+    <div class="container">
+      <div class="section__header" style="text-align:center;">
+        <span class="section__eyebrow">FAQ</span>
+        <h2 class="section__title">Perguntas frequentes</h2>
+      </div>
+      <div class="faq__list">
+        <div class="faq-item">
+          <div class="faq-item__question">Quanto tempo demora a entregar um site?</div>
+          <div class="faq-item__answer">Um site Starter demora em média 5 a 7 dias úteis. O pacote Growth entre 10 a 14 dias. Projetos Enterprise têm prazo definido na proposta.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-item__question">Preciso de saber tecnologia para trabalhar convosco?</div>
+          <div class="faq-item__answer">Não. Tratamos de tudo — desde o design ao deploy. O teu papel é dar-nos contexto sobre o teu negócio e aprovar o resultado.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-item__question">O chatbot funciona em português e espanhol?</div>
+          <div class="faq-item__answer">Sim. Todos os nossos chatbots são configurados para os idiomas que o teu negócio precisa, incluindo PT, ES e EN.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-item__question">O que é um sistema RAG?</div>
+          <div class="faq-item__answer">RAG (Retrieval-Augmented Generation) é uma tecnologia que permite à IA responder perguntas com base nos teus próprios documentos — contratos, manuais, legislação — com precisão e sem inventar respostas.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-item__question">Fazem manutenção após a entrega?</div>
+          <div class="faq-item__answer">Sim. Oferecemos planos de manutenção mensal a partir de 50€/mês, que incluem atualizações, monitorização e suporte técnico.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section cta-section">
+    <div class="container">
+      <div class="cta-box">
+        <h2 class="cta-box__title">Não sabes por onde começar?</h2>
+        <p class="cta-box__subtitle">Marca uma consulta gratuita de 30 minutos. Analisamos o teu negócio e sugerimos o melhor caminho.</p>
+        <a href="mailto:hello@bestai.pt" class="btn btn--primary">Agendar Consulta Gratuita</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <img src="../assets/images/logo.png" alt="BestAI" />
+          <p data-i18n="footer_desc">Soluções de Inteligência Artificial para empresas que querem crescer com tecnologia.</p>
+        </div>
+        <div class="footer__col">
+          <h4 data-i18n="footer_services">Serviços</h4>
+          <ul>
+            <li><a href="servicos.html">Sites & E-commerce</a></li>
+            <li><a href="servicos.html">Chatbots com IA</a></li>
+            <li><a href="servicos.html">Sistemas RAG</a></li>
+            <li><a href="servicos.html">Automações</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4 data-i18n="footer_company">Empresa</h4>
+          <ul>
+            <li><a href="sobre.html"   data-i18n="footer_about">Sobre nós</a></li>
+            <li><a href="blog.html"    data-i18n="footer_blog">Blog</a></li>
+            <li><a href="eventos.html" data-i18n="footer_events">Eventos</a></li>
+            <li><a href="../index.html#contacto" data-i18n="footer_contact">Contacto</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4 data-i18n="footer_legal">Legal</h4>
+          <ul>
+            <li><a href="#" data-i18n="footer_privacy">Privacidade</a></li>
+            <li><a href="#" data-i18n="footer_terms">Termos de uso</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>© 2026 BestAI. <span data-i18n="footer_rights">Todos os direitos reservados.</span></span>
+        <div class="lang-switcher">
+          <span data-lang="pt">PT</span>
+          <span style="color:#2e3548">|</span>
+          <span data-lang="es">ES</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/i18n.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script>
+    // FAQ accordion
+    document.querySelectorAll('.faq-item__question').forEach(q => {
+      q.addEventListener('click', () => {
+        const item = q.parentElement;
+        const wasOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!wasOpen) item.classList.add('open');
+      });
+    });
+  </script>
+</body>
+</html>
