@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="BestAI — Soluções de Inteligência Artificial para empresas. Sites, Chatbots, RAG, Automações e SEO com IA." />
+  <title>BestAI — Inteligência Artificial para o teu negócio</title>
+
+  <link rel="icon" type="image/png" href="assets/images/logo.png" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════
+       NAVBAR
+  ══════════════════════════════════════════ -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="navbar__logo">
+        <img src="assets/images/logo.png" alt="BestAI" />
+      </a>
+
+      <ul class="navbar__links">
+        <li><a href="pages/servicos.html" data-i18n="nav_services">Serviços</a></li>
+        <li><a href="pages/sobre.html"    data-i18n="nav_about">Sobre</a></li>
+        <li><a href="pages/blog.html"     data-i18n="nav_blog">Blog</a></li>
+        <li><a href="pages/eventos.html"  data-i18n="nav_events">Eventos</a></li>
+        <li>
+          <div class="lang-switcher">
+            <span data-lang="pt" class="active">PT</span>
+            <span style="color:#2e3548">|</span>
+            <span data-lang="es">ES</span>
+          </div>
+        </li>
+        <li><a href="#contacto" class="navbar__cta" data-i18n="nav_contact">Contactar</a></li>
+      </ul>
+
+      <div class="navbar__toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════
+       HERO
+  ══════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero__bg">
+      <div class="hero__orb hero__orb--1"></div>
+      <div class="hero__orb hero__orb--2"></div>
+      <div class="hero__grid"></div>
+    </div>
+
+    <div class="container hero__content">
+      <div class="hero__text">
+        <span class="section__eyebrow" data-i18n="hero_eyebrow">Inteligência Artificial para o teu negócio</span>
+        <h1 class="hero__title" data-i18n="hero_title">Automatiza. Cresce.<br>Com IA.</h1>
+        <p class="hero__subtitle" data-i18n="hero_subtitle">
+          Criamos sites, chatbots, automações e soluções de IA para empresas que querem liderar o futuro.
+        </p>
+        <div class="hero__actions">
+          <a href="pages/servicos.html" class="btn btn--primary" data-i18n="hero_cta_main">Ver Serviços</a>
+          <a href="#contacto" class="btn btn--outline" data-i18n="hero_cta_alt">Falar Connosco</a>
+        </div>
+      </div>
+
+      <div class="hero__visual">
+        <div class="hero__card-float hero__card-float--1">
+          <span>🤖</span>
+          <p>Chatbot ativo</p>
+        </div>
+        <div class="hero__brain">
+          <img src="assets/images/logo.png" alt="BestAI Brain" />
+        </div>
+        <div class="hero__card-float hero__card-float--2">
+          <span>⚡</span>
+          <p>Automação ligada</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="container">
+      <div class="hero__stats">
+        <div class="stat-item">
+          <span class="stat-item__value" data-target="48h">48h</span>
+          <span class="stat-item__label" data-i18n="stat_1_label">Tempo médio de entrega</span>
+        </div>
+        <div class="stat-item__divider"></div>
+        <div class="stat-item">
+          <span class="stat-item__value" data-target="100%">100%</span>
+          <span class="stat-item__label" data-i18n="stat_2_label">Projetos entregues a tempo</span>
+        </div>
+        <div class="stat-item__divider"></div>
+        <div class="stat-item">
+          <span class="stat-item__value" data-target="10+">10+</span>
+          <span class="stat-item__label" data-i18n="stat_3_label">Sectores servidos</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       SERVIÇOS
+  ══════════════════════════════════════════ -->
+  <section class="section section--light" id="servicos">
+    <div class="container">
+      <div class="section__header">
+        <span class="section__eyebrow" data-i18n="services_eyebrow">O que fazemos</span>
+        <h2 class="section__title" data-i18n="services_title">Soluções de IA para cada necessidade</h2>
+        <p class="section__subtitle" data-i18n="services_subtitle">
+          De um site com SEO a um sistema RAG completo — implementamos a tecnologia certa para o teu sector.
+        </p>
+      </div>
+
+      <div class="services__grid">
+        <div class="card">
+          <div class="card__icon">🌐</div>
+          <h3 class="card__title" data-i18n="svc_1_title">Sites & E-commerce</h3>
+          <p class="card__text"  data-i18n="svc_1_text">Sites profissionais com SEO integrado, design moderno e otimizados para converter visitantes em clientes.</p>
+        </div>
+        <div class="card">
+          <div class="card__icon">💬</div>
+          <h3 class="card__title" data-i18n="svc_2_title">Chatbots com IA</h3>
+          <p class="card__text"  data-i18n="svc_2_text">Assistentes virtuais para WhatsApp, site ou Instagram que respondem, qualificam leads e agendam reuniões.</p>
+        </div>
+        <div class="card">
+          <div class="card__icon">🧠</div>
+          <h3 class="card__title" data-i18n="svc_3_title">Sistemas RAG</h3>
+          <p class="card__text"  data-i18n="svc_3_text">A tua empresa responde perguntas com base nos teus próprios documentos, contratos e normas internas.</p>
+        </div>
+        <div class="card">
+          <div class="card__icon">⚙️</div>
+          <h3 class="card__title" data-i18n="svc_4_title">Automação de Processos</h3>
+          <p class="card__text"  data-i18n="svc_4_text">Eliminamos tarefas repetitivas com fluxos automáticos — emails, relatórios, agendamentos e muito mais.</p>
+        </div>
+        <div class="card">
+          <div class="card__icon">📈</div>
+          <h3 class="card__title" data-i18n="svc_5_title">SEO & SEM com IA</h3>
+          <p class="card__text"  data-i18n="svc_5_text">Otimização contínua para motores de busca usando ferramentas de IA para resultados mais rápidos.</p>
+        </div>
+        <div class="card">
+          <div class="card__icon">🎯</div>
+          <h3 class="card__title" data-i18n="svc_6_title">Consultoria em IA</h3>
+          <p class="card__text"  data-i18n="svc_6_text">Analisamos o teu negócio e desenhamos um plano concreto para introduzir IA nos teus processos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       SECTORES
+  ══════════════════════════════════════════ -->
+  <section class="section section--dark" id="sectores">
+    <div class="container">
+      <div class="section__header">
+        <span class="section__eyebrow" data-i18n="sectors_eyebrow">Sectores</span>
+        <h2 class="section__title" data-i18n="sectors_title">Trabalhamos com quem quer crescer</h2>
+      </div>
+      <div class="sectors__grid">
+        <div class="sector-tag">🏠 <span data-i18n="sector_1">Imobiliário</span></div>
+        <div class="sector-tag">🏥 <span data-i18n="sector_2">Saúde & Clínicas</span></div>
+        <div class="sector-tag">⚖️ <span data-i18n="sector_3">Advocacia</span></div>
+        <div class="sector-tag">📊 <span data-i18n="sector_4">Contabilidade</span></div>
+        <div class="sector-tag">✈️ <span data-i18n="sector_5">Turismo</span></div>
+        <div class="sector-tag">⚡ <span data-i18n="sector_6">Energia</span></div>
+        <div class="sector-tag">🛍️ <span data-i18n="sector_7">Retalho</span></div>
+        <div class="sector-tag">🎓 <span data-i18n="sector_8">Educação</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       CTA FINAL
+  ══════════════════════════════════════════ -->
+  <section class="section cta-section" id="contacto">
+    <div class="container">
+      <div class="cta-box">
+        <h2 class="cta-box__title" data-i18n="cta_title">Pronto para automatizar o teu negócio?</h2>
+        <p class="cta-box__subtitle" data-i18n="cta_subtitle">Fala connosco hoje. A primeira consulta é gratuita.</p>
+        <a href="mailto:hello@bestai.pt" class="btn btn--primary" data-i18n="cta_button">Agendar Consulta Gratuita</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <img src="assets/images/logo.png" alt="BestAI" />
+          <p data-i18n="footer_desc">Soluções de Inteligência Artificial para empresas que querem crescer com tecnologia.</p>
+        </div>
+        <div class="footer__col">
+          <h4 data-i18n="footer_services">Serviços</h4>
+          <ul>
+            <li><a href="pages/servicos.html">Sites & E-commerce</a></li>
+            <li><a href="pages/servicos.html">Chatbots com IA</a></li>
+            <li><a href="pages/servicos.html">Sistemas RAG</a></li>
+            <li><a href="pages/servicos.html">Automações</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4 data-i18n="footer_company">Empresa</h4>
+          <ul>
+            <li><a href="pages/sobre.html"   data-i18n="footer_about">Sobre nós</a></li>
+            <li><a href="pages/blog.html"    data-i18n="footer_blog">Blog</a></li>
+            <li><a href="pages/eventos.html" data-i18n="footer_events">Eventos</a></li>
+            <li><a href="#contacto"          data-i18n="footer_contact">Contacto</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4 data-i18n="footer_legal">Legal</h4>
+          <ul>
+            <li><a href="#" data-i18n="footer_privacy">Privacidade</a></li>
+            <li><a href="#" data-i18n="footer_terms">Termos de uso</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>© 2026 BestAI. <span data-i18n="footer_rights">Todos os direitos reservados.</span></span>
+        <div class="lang-switcher">
+          <span data-lang="pt">PT</span>
+          <span style="color:#2e3548">|</span>
+          <span data-lang="es">ES</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/i18n.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
