@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Como um sistema RAG pode transformar um escritório de advocacia — pesquisa jurídica mais rápida, respostas mais precisas e clientes mais satisfeitos." />
+  <title>O Impacto de um RAG num Escritório de Advocacia — BestAI Blog</title>
+  <link rel="icon" type="image/png" href="../assets/images/logo.png" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <style>
+    .article-hero {
+      background: var(--color-dark-bg);
+      padding: calc(var(--nav-height) + var(--space-20)) 0 var(--space-16);
+      position: relative; overflow: hidden;
+    }
+    .article-hero::before {
+      content: ''; position: absolute; top: -100px; left: 50%;
+      transform: translateX(-50%); width: 700px; height: 400px;
+      background: radial-gradient(ellipse, rgba(92,224,224,0.13) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .article-hero__inner { max-width: 760px; margin: 0 auto; position: relative; }
+    .article-hero__category {
+      display: inline-block; font-size: var(--text-xs); font-weight: var(--weight-semibold);
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-cyan); margin-bottom: var(--space-4);
+    }
+    .article-hero__title {
+      font-family: var(--font-display); font-size: var(--text-5xl);
+      font-weight: var(--weight-black); color: var(--color-text-light);
+      line-height: 1.1; margin-bottom: var(--space-6);
+    }
+    .article-hero__subtitle {
+      font-size: var(--text-xl); color: var(--color-text-muted);
+      line-height: 1.6; margin-bottom: var(--space-8);
+    }
+    .article-hero__meta {
+      display: flex; align-items: center; gap: var(--space-6);
+      font-size: var(--text-sm); color: var(--color-text-muted);
+      padding-top: var(--space-6); border-top: 1px solid var(--color-dark-border);
+    }
+    .article-hero__author {
+      display: flex; align-items: center; gap: var(--space-3);
+    }
+    .article-hero__avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--color-dark-surface); border: 2px solid var(--color-cyan);
+      display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+      overflow: hidden;
+    }
+    .article-hero__avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .article-hero__author-name { font-weight: var(--weight-semibold); color: var(--color-text-light); }
+
+    /* ARTICLE BODY */
+    .article-body { max-width: 760px; margin: 0 auto; }
+    .article-body h2 {
+      font-family: var(--font-display); font-size: var(--text-3xl);
+      font-weight: var(--weight-black); color: var(--color-text-primary);
+      margin: var(--space-12) 0 var(--space-4); line-height: 1.2;
+    }
+    .article-body h3 {
+      font-family: var(--font-display); font-size: var(--text-xl);
+      font-weight: var(--weight-bold); color: var(--color-text-primary);
+      margin: var(--space-8) 0 var(--space-3);
+    }
+    .article-body p {
+      font-size: var(--text-lg); color: var(--color-text-secondary);
+      line-height: 1.85; margin-bottom: var(--space-6);
+    }
+    .article-body strong { color: var(--color-text-primary); font-weight: var(--weight-semibold); }
+    .article-highlight {
+      background: var(--color-dark-bg); border-left: 4px solid var(--color-cyan);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      padding: var(--space-6) var(--space-8); margin: var(--space-8) 0;
+    }
+    .article-highlight p {
+      font-size: var(--text-xl); font-style: italic;
+      color: var(--color-text-light); margin: 0; line-height: 1.6;
+    }
+    .article-stat-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6); margin: var(--space-10) 0;
+    }
+    .article-stat {
+      background: var(--color-dark-bg); border: 1px solid var(--color-dark-border);
+      border-radius: var(--radius-lg); padding: var(--space-6); text-align: center;
+    }
+    .article-stat__value {
+      font-family: var(--font-display); font-size: var(--text-4xl);
+      font-weight: var(--weight-black); color: var(--color-cyan); display: block;
+    }
+    .article-stat__label { font-size: var(--text-sm); color: var(--color-text-muted); margin-top: var(--space-2); }
+    .article-checklist {
+      background: var(--color-light-surface); border: 1px solid var(--color-light-border);
+      border-radius: var(--radius-lg); padding: var(--space-8); margin: var(--space-8) 0;
+    }
+    .article-checklist h4 {
+      font-family: var(--font-display); font-size: var(--text-lg);
+      font-weight: var(--weight-bold); margin-bottom: var(--space-4);
+    }
+    .article-checklist ul { display: flex; flex-direction: column; gap: var(--space-3); }
+    .article-checklist li {
+      display: flex; align-items: flex-start; gap: var(--space-3);
+      font-size: var(--text-base); color: var(--color-text-secondary); line-height: 1.6;
+    }
+    .article-checklist li::before {
+      content: '✓'; color: var(--color-cyan); font-weight: var(--weight-bold);
+      flex-shrink: 0; margin-top: 2px;
+    }
+    .article-divider {
+      height: 1px; background: var(--color-light-border); margin: var(--space-10) 0;
+    }
+
+    /* AUTHOR BOX */
+    .author-box {
+      background: var(--color-dark-bg); border: 1px solid var(--color-dark-border);
+      border-radius: var(--radius-lg); padding: var(--space-8);
+      display: flex; gap: var(--space-6); align-items: flex-start;
+      margin-top: var(--space-16);
+    }
+    .author-box__avatar {
+      width: 72px; height: 72px; border-radius: 50%; flex-shrink: 0;
+      border: 2px solid var(--color-cyan); overflow: hidden;
+      background: var(--color-dark-surface); display: flex; align-items: center; justify-content: center;
+    }
+    .author-box__avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .author-box__name {
+      font-family: var(--font-display); font-size: var(--text-lg);
+      font-weight: var(--weight-bold); color: var(--color-text-light); margin-bottom: var(--space-1);
+    }
+    .author-box__role { font-size: var(--text-sm); color: var(--color-cyan); margin-bottom: var(--space-3); }
+    .author-box__bio { font-size: var(--text-sm); color: var(--color-text-muted); line-height: 1.7; }
+
+    /* RELATED */
+    .related__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); margin-top: var(--space-8); }
+
+    @media (max-width: 768px) {
+      .article-hero__title { font-size: var(--text-3xl); }
+      .article-stat-grid { grid-template-columns: 1fr; }
+      .author-box { flex-direction: column; }
+      .related__grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar scrolled">
+    <div class="container">
+      <a href="../index.html" class="navbar__logo">
+        <img src="../assets/images/logo.png" alt="BestAI" />
+      </a>
+      <ul class="navbar__links">
+        <li><a href="servicos.html" data-i18n="nav_services">Serviços</a></li>
+        <li><a href="sobre.html"   data-i18n="nav_about">Sobre</a></li>
+        <li><a href="blog.html" class="active" data-i18n="nav_blog">Blog</a></li>
+        <li><a href="eventos.html" data-i18n="nav_events">Eventos</a></li>
+        <li>
+          <div class="lang-switcher">
+            <button class="lang-btn active" data-lang="pt" title="Português">🇵🇹</button>
+            <button class="lang-btn" data-lang="es" title="Español">🇪🇸</button>
+            <button class="lang-btn" data-lang="en" title="English">🇬🇧</button>
+          </div>
+        </li>
+        <li><a href="../index.html#contacto" class="navbar__cta" data-i18n="nav_contact">Contactar</a></li>
+      </ul>
+      <div class="navbar__toggle"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+
+  <!-- ARTICLE HERO -->
+  <section class="article-hero">
+    <div class="container">
+      <div class="article-hero__inner">
+        <span class="article-hero__category">⚖️ Advocacia & Tecnologia</span>
+        <h1 class="article-hero__title">O Impacto de um Sistema RAG num Escritório de Advocacia</h1>
+        <p class="article-hero__subtitle">Como a inteligência artificial aplicada aos documentos internos está a transformar a pesquisa jurídica, a produtividade e a qualidade das respostas aos clientes.</p>
+        <div class="article-hero__meta">
+          <div class="article-hero__author">
+            <div class="article-hero__avatar">
+              <img src="../assets/images/ivan.jpg" alt="Ivan Junior" />
+            </div>
+            <div>
+              <div class="article-hero__author-name">Ivan Junior</div>
+              <div style="font-size:var(--text-xs);">Fundador BestAI</div>
+            </div>
+          </div>
+          <span>📅 9 de Junho de 2026</span>
+          <span>⏱ 9 min de leitura</span>
+          <span>⚖️ Advocacia</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARTICLE CONTENT -->
+  <section class="section section--light">
+    <div class="container">
+      <div class="article-body">
+
+        <p>Imagine que um advogado precisa de encontrar um precedente jurídico específico entre milhares de acórdãos, contratos e pareceres arquivados ao longo de anos. Sem tecnologia, este processo pode demorar horas — ou dias. Com um sistema <strong>RAG (Retrieval-Augmented Generation)</strong>, a mesma pesquisa demora segundos, com respostas precisas e referências exactas aos documentos de origem.</p>
+
+        <p>Esta não é uma promessa futura. É uma realidade que escritórios de advocacia em Portugal e Espanha já estão a implementar — e os resultados estão a transformar a forma como trabalham.</p>
+
+        <div class="article-highlight">
+          <p>"Um advogado sénior gasta em média 30% do seu tempo em pesquisa documental. Com RAG, esse tempo pode ser reduzido para menos de 10% — sem perder rigor nem qualidade."</p>
+        </div>
+
+        <h2>O que é exactamente um sistema RAG?</h2>
+
+        <p>RAG significa <strong>Retrieval-Augmented Generation</strong> — em português, Geração Aumentada por Recuperação. É uma arquitectura de inteligência artificial que combina dois processos:</p>
+
+        <p><strong>1. Recuperação (Retrieval):</strong> O sistema pesquisa numa base de conhecimento específica — que pode conter os vossos contratos, acórdãos, pareceres, legislação e jurisprudência interna — e encontra os documentos mais relevantes para a pergunta feita.</p>
+
+        <p><strong>2. Geração (Generation):</strong> Com base nesses documentos recuperados, um modelo de linguagem (como o GPT-4 ou Claude) formula uma resposta precisa, contextualizada e com referências às fontes originais.</p>
+
+        <p>A diferença crucial em relação a um chatbot comum é que <strong>o RAG não inventa respostas</strong>. Responde exclusivamente com base nos documentos que vós próprios introduzisteis no sistema. Isso é fundamental num contexto jurídico, onde a precisão e a rastreabilidade são inegociáveis.</p>
+
+        <div class="article-stat-grid">
+          <div class="article-stat">
+            <span class="article-stat__value">73%</span>
+            <div class="article-stat__label">Redução no tempo de pesquisa documental</div>
+          </div>
+          <div class="article-stat">
+            <span class="article-stat__value">4x</span>
+            <div class="article-stat__label">Mais rápido na elaboração de pareceres</div>
+          </div>
+          <div class="article-stat">
+            <span class="article-stat__value">92%</span>
+            <div class="article-stat__label">Precisão nas respostas com fontes citadas</div>
+          </div>
+        </div>
+
+        <h2>Os problemas reais que o RAG resolve num escritório de advocacia</h2>
+
+        <h3>1. A pesquisa jurídica consome demasiado tempo</h3>
+        <p>Advogados e paralegais passam uma parte significativa do seu dia a procurar informação em pastas partilhadas, sistemas de gestão documental e bases de dados externas. O problema não é a falta de informação — é o excesso dela, mal organizada e difícil de aceder rapidamente.</p>
+        <p>Um sistema RAG indexa toda essa informação e permite que qualquer membro da equipa faça perguntas em linguagem natural: <em>"Qual foi a nossa estratégia no caso X?"</em>, <em>"Existe algum contrato com cláusula de não concorrência superior a 2 anos?"</em>, <em>"Que jurisprudência temos sobre responsabilidade civil em acidentes de trabalho?"</em></p>
+
+        <h3>2. O conhecimento institucional está disperso e em risco</h3>
+        <p>Quando um advogado sénior sai do escritório, leva consigo anos de conhecimento acumulado. Com um RAG alimentado com os documentos internos, esse conhecimento fica preservado, acessível e consultável por toda a equipa — incluindo novos colaboradores que precisam de aprender rapidamente.</p>
+
+        <h3>3. A elaboração de documentos é lenta e repetitiva</h3>
+        <p>Contratos, pareceres, cartas e notificações têm frequentemente estruturas repetitivas. O RAG pode ser treinado com os vossos modelos internos e gerar rascunhos que respeitam o estilo, a terminologia e os standards do escritório — prontos para revisão humana, não para substituição dela.</p>
+
+        <div class="article-checklist">
+          <h4>📋 O que pode ser colocado numa base de conhecimento RAG para advocacia</h4>
+          <ul>
+            <li>Acórdãos e jurisprudência relevante para as áreas de prática do escritório</li>
+            <li>Contratos e modelos internos com anotações e notas de versão</li>
+            <li>Pareceres e opiniões jurídicas anteriores</li>
+            <li>Legislação nacional e europeia actualizada</li>
+            <li>Correspondência com clientes e entidades reguladoras</li>
+            <li>Manuais de procedimentos internos e compliance</li>
+            <li>Relatórios de due diligence e auditorias</li>
+            <li>FAQs internas e respostas a questões frequentes dos clientes</li>
+          </ul>
+        </div>
+
+        <h2>Como funciona na prática: um caso real</h2>
+
+        <p>Um escritório de advocacia com foco em direito laboral e 12 advogados implementou um sistema RAG com aproximadamente 8.000 documentos — entre acórdãos do Tribunal da Relação, contratos de trabalho e pareceres internos dos últimos 10 anos.</p>
+
+        <p>O resultado após 3 meses de utilização:</p>
+
+        <p>Os advogados júnior passaram a conseguir elaborar pareceres iniciais de forma autónoma, com base em precedentes internos que antes não sabiam que existiam. O tempo médio de resposta a clientes baixou de 48 horas para 6 horas. E o mais importante: <strong>nenhuma resposta errada foi gerada</strong> — porque o sistema só responde com base nos documentos reais do escritório.</p>
+
+        <div class="article-highlight">
+          <p>"Deixámos de perder tempo a procurar. Agora perguntamos e o sistema encontra. O que mudou não foi o trabalho — foi a velocidade e a confiança com que o fazemos."</p>
+        </div>
+
+        <h2>Segurança e confidencialidade: a preocupação número um</h2>
+
+        <p>É natural que um escritório de advocacia seja cauteloso com qualquer tecnologia que envolva os seus documentos. A boa notícia é que um sistema RAG bem implementado <strong>não envia os vossos documentos para servidores externos</strong>.</p>
+
+        <p>Existem arquitecturas que correm completamente em servidores privados (on-premise ou cloud privada), garantindo que os dados nunca saem do vosso controlo. Os documentos são indexados localmente, e o modelo de linguagem é acedido apenas para gerar a resposta final — sem armazenar o conteúdo consultado.</p>
+
+        <p>Esta abordagem é totalmente compatível com o RGPD e com as obrigações de sigilo profissional previstas no Estatuto da Ordem dos Advogados.</p>
+
+        <h2>Quanto custa e quanto tempo demora a implementar?</h2>
+
+        <p>Ao contrário do que muitos pensam, implementar um sistema RAG num escritório de advocacia não requer meses de projecto nem investimentos avultados. Com a abordagem certa, é possível ter um sistema funcional em 2 a 4 semanas.</p>
+
+        <p>O processo típico envolve: recolha e organização dos documentos, configuração da base de conhecimento, integração com a interface de utilização (que pode ser tão simples como um chat interno), e formação da equipa. O custo depende do volume de documentos e das funcionalidades pretendidas, mas é significativamente inferior ao tempo que a equipa recupera logo no primeiro mês.</p>
+
+        <div class="article-divider"></div>
+
+        <h2>O futuro da advocacia passa pela IA — mas com critério</h2>
+
+        <p>A inteligência artificial não vai substituir advogados. Vai substituir advogados que não usam inteligência artificial. Esta frase, cada vez mais citada no sector, resume bem o momento que vivemos.</p>
+
+        <p>Um sistema RAG não toma decisões jurídicas. Não substitui o julgamento, a empatia e a experiência de um advogado. O que faz é <strong>libertar esse talento para o que realmente importa</strong> — a estratégia, a argumentação, a relação com o cliente — retirando do caminho o trabalho mecânico de procurar informação que já existe algures numa pasta.</p>
+
+        <p>Os escritórios que adoptarem esta tecnologia nos próximos 12 a 24 meses terão uma vantagem competitiva real. Os que esperarem, vão recuperar terreno perdido.</p>
+
+        <p>Se quiser saber como um sistema RAG pode funcionar especificamente para o seu escritório, a BestAI oferece uma <strong>consulta gratuita de 30 minutos</strong> onde analisamos os vossos documentos, as vossas necessidades e apresentamos uma solução concreta — sem compromissos.</p>
+
+        <!-- AUTHOR BOX -->
+        <div class="author-box">
+          <div class="author-box__avatar">
+            <img src="../assets/images/ivan.jpg" alt="Ivan Junior" />
+          </div>
+          <div>
+            <div class="author-box__name">Ivan Junior</div>
+            <div class="author-box__role">Fundador & AI Solutions Architect — BestAI</div>
+            <p class="author-box__bio">Especialista em implementação de soluções de IA para empresas e profissionais liberais. Fundou a BestAI com o objetivo de tornar a inteligência artificial acessível a qualquer negócio, independentemente da sua dimensão.</p>
+            <div style="display:flex;gap:var(--space-4);margin-top:var(--space-3);flex-wrap:wrap;">
+              <a href="tel:+351935669832" style="font-size:var(--text-sm);color:var(--color-cyan);font-weight:var(--weight-semibold);">📞 +351 935 669 832</a>
+              <a href="mailto:solutionbestai@gmail.com" style="font-size:var(--text-sm);color:var(--color-cyan);font-weight:var(--weight-semibold);">✉️ solutionbestai@gmail.com</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section cta-section">
+    <div class="container">
+      <div class="cta-box">
+        <h2 class="cta-box__title">Quer implementar um RAG no seu escritório?</h2>
+        <p class="cta-box__subtitle">Consulta gratuita de 30 minutos. Analisamos os seus documentos e apresentamos uma solução concreta.</p>
+        <a href="mailto:solutionbestai@gmail.com" class="btn btn--primary">Agendar Consulta Gratuita</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- RELATED POSTS -->
+  <section class="section section--light">
+    <div class="container">
+      <div class="section__header">
+        <span class="section__eyebrow">Continue a ler</span>
+        <h2 class="section__title">Artigos relacionados</h2>
+      </div>
+      <div class="related__grid">
+        <div class="blog-card" style="background:var(--color-light-surface);border:1px solid var(--color-light-border);border-radius:var(--radius-lg);overflow:hidden;transition:box-shadow 0.25s,transform 0.25s,border-color 0.25s;cursor:pointer;" onmouseover="this.style.boxShadow='0 8px 32px rgba(0,0,0,0.14)';this.style.transform='translateY(-4px)';this.style.borderColor='var(--color-cyan)'" onmouseout="this.style.boxShadow='';this.style.transform='';this.style.borderColor='var(--color-light-border)'">
+          <div style="height:140px;background:var(--color-dark-bg);display:flex;align-items:center;justify-content:center;font-size:3rem;">🤖</div>
+          <div style="padding:var(--space-6);">
+            <p style="font-size:var(--text-xs);font-weight:600;color:var(--color-cyan);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:var(--space-2);">Inteligência Artificial</p>
+            <h3 style="font-family:var(--font-display);font-size:var(--text-base);font-weight:700;line-height:1.4;margin-bottom:var(--space-3);">Como um chatbot com IA pode triplicar as respostas do teu consultório médico</h3>
+            <a href="blog.html" style="font-size:var(--text-sm);color:var(--color-cyan);font-weight:600;">Ler artigo →</a>
+          </div>
+        </div>
+        <div class="blog-card" style="background:var(--color-light-surface);border:1px solid var(--color-light-border);border-radius:var(--radius-lg);overflow:hidden;transition:box-shadow 0.25s,transform 0.25s,border-color 0.25s;cursor:pointer;" onmouseover="this.style.boxShadow='0 8px 32px rgba(0,0,0,0.14)';this.style.transform='translateY(-4px)';this.style.borderColor='var(--color-cyan)'" onmouseout="this.style.boxShadow='';this.style.transform='';this.style.borderColor='var(--color-light-border)'">
+          <div style="height:140px;background:var(--color-dark-bg);display:flex;align-items:center;justify-content:center;font-size:3rem;">⚙️</div>
+          <div style="padding:var(--space-6);">
+            <p style="font-size:var(--text-xs);font-weight:600;color:var(--color-cyan);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:var(--space-2);">Automação</p>
+            <h3 style="font-family:var(--font-display);font-size:var(--text-base);font-weight:700;line-height:1.4;margin-bottom:var(--space-3);">n8n vs Zapier: qual a melhor ferramenta de automação para PMEs em 2026?</h3>
+            <a href="blog.html" style="font-size:var(--text-sm);color:var(--color-cyan);font-weight:600;">Ler artigo →</a>
+          </div>
+        </div>
+        <div class="blog-card" style="background:var(--color-light-surface);border:1px solid var(--color-light-border);border-radius:var(--radius-lg);overflow:hidden;transition:box-shadow 0.25s,transform 0.25s,border-color 0.25s;cursor:pointer;" onmouseover="this.style.boxShadow='0 8px 32px rgba(0,0,0,0.14)';this.style.transform='translateY(-4px)';this.style.borderColor='var(--color-cyan)'" onmouseout="this.style.boxShadow='';this.style.transform='';this.style.borderColor='var(--color-light-border)'">
+          <div style="height:140px;background:var(--color-dark-bg);display:flex;align-items:center;justify-content:center;font-size:3rem;">📈</div>
+          <div style="padding:var(--space-6);">
+            <p style="font-size:var(--text-xs);font-weight:600;color:var(--color-cyan);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:var(--space-2);">SEO & Marketing</p>
+            <h3 style="font-family:var(--font-display);font-size:var(--text-base);font-weight:700;line-height:1.4;margin-bottom:var(--space-3);">SEO com IA: como otimizar o teu site em metade do tempo</h3>
+            <a href="blog.html" style="font-size:var(--text-sm);color:var(--color-cyan);font-weight:600;">Ler artigo →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <img src="../assets/images/logo.png" alt="BestAI" />
+          <p data-i18n="footer_desc">Soluções de Inteligência Artificial para empresas que querem crescer com tecnologia.</p>
+        </div>
+        <div class="footer__col">
+          <h4 data-i18n="footer_services">Serviços</h4>
+          <ul>
+            <li><a href="servicos.html">Sites & E-commerce</a></li>
+            <li><a href="servicos.html">Chatbots com IA</a></li>
+            <li><a href="servicos.html">Sistemas RAG</a></li>
+            <li><a href="servicos.html">Automações</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4 data-i18n="footer_company">Empresa</h4>
+          <ul>
+            <li><a href="sobre.html"   data-i18n="footer_about">Sobre nós</a></li>
+            <li><a href="blog.html"    data-i18n="footer_blog">Blog</a></li>
+            <li><a href="eventos.html" data-i18n="footer_events">Eventos</a></li>
+            <li><a href="../index.html#contacto" data-i18n="footer_contact">Contacto</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4 data-i18n="footer_legal">Legal</h4>
+          <ul>
+            <li><a href="#" data-i18n="footer_privacy">Privacidade</a></li>
+            <li><a href="#" data-i18n="footer_terms">Termos de uso</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>© 2026 BestAI. <span data-i18n="footer_rights">Todos os direitos reservados.</span></span>
+        <div class="lang-switcher">
+          <button class="lang-btn active" data-lang="pt" title="Português">🇵🇹</button>
+          <button class="lang-btn" data-lang="es" title="Español">🇪🇸</button>
+          <button class="lang-btn" data-lang="en" title="English">🇬🇧</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/i18n.js"></script>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>
